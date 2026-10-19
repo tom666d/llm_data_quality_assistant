@@ -2,7 +2,7 @@
 
 > **This repository is a snapshot of a team course project. The code is kept exactly as submitted.**
 >
-> - **Source.** It is mirrored from the team repository [tom666d/big_data_team_6](https://github.com/tom666d/big_data_team_6) at the submission commit `b01ef2e` (2026-04-26). Only this README was rewritten.
+> - **Source.** It is mirrored from the team repository [tom666d/big_data_team_6](https://github.com/tom666d/big_data_team_6) at the submission commit `b01ef2e` (2026-04-26). Only this README was rewritten, and the demo screenshots in `docs/demo/` were added.
 > - **Team.** Sean Cabaniss, Yung Hsuan Hsieh, Ching-Fen Hung, Yonghui Kim, and Omkar Thombare. It was built for the Big Data Analytics course in the MSBA program at the Carlson School of Management, University of Minnesota. I (Yung Hsuan Hsieh) was the team's LLM engineer and built the LLM pipeline with Ching-Fen Hung.
 > - **Follow-up.** I later evaluated this system in [llm_data_quality_evaluation](https://github.com/tom666d/llm_data_quality_evaluation).
 
@@ -53,6 +53,7 @@ src/llm/suggester_dashboard.py        the two-agent LLM pipeline
 streamlit_app/app.py                  the review dashboard
 data/                                 the LendingClub sample, demo data, and pipeline outputs
 flyer/DataGenie-2.pdf                 the project flyer
+docs/demo/                            dashboard screenshots used in the Demo section
 ```
 
 ## Pipeline
@@ -85,3 +86,37 @@ flyer/DataGenie-2.pdf                 the project flyer
 | 5. Validate | Checks that there are three options, that every option has code, and that option 3 is the decline. If not, it asks again, up to 2 retries | `critic_check()`, `generate_remediation_with_critic()` |
 | 6. Approve | The dashboard lists issues by priority, with the diagnosis and options. The analyst approves one. **Nothing is applied automatically** | [`streamlit_app/app.py`](streamlit_app/app.py) |
 | 7. Learn | Each approval is saved and used as context in later Agent 2 prompts | `save_decision_to_history()`, `format_historical_context()` |
+
+## Demo
+
+A walkthrough of the dashboard on the demo dataset.
+
+### 1. Run the pipeline
+
+With **Use Demo Dataset** on, click **Step 1: Detect Anomalous Data**, then **Step 2: Generate Remediation Options**. Until both steps have run, the dashboard shows a reminder to run them first.
+
+![The dashboard before the pipeline runs](docs/demo/1-run-pipeline.png)
+
+### 2. Review the detected issues
+
+The summary shows how many issues were found, how many are high severity, and the average quality score before and after the fixes (an estimate). Issues are listed by priority: here, a null spike in `loan_amnt` (8/10, high) and a statistical outlier in `funded_amnt` (5/10, medium).
+
+![The data summary and the issues ranked by priority](docs/demo/2-issues.png)
+
+### 3. Read the diagnosis and the suggested fixes
+
+Opening an issue shows the anomaly details, sample values, and Agent 1's impact analysis: business risk, root cause, and the share of rows affected. Below it are Agent 2's ranked options. Each has an action, a rationale, caveats, PySpark code, and a confidence score.
+
+![The diagnosis and the AI suggestions for loan_amnt](docs/demo/3-diagnosis.png)
+
+### 4. Approve an option
+
+The analyst approves one option, here Option 1, "Replace nulls with median" (85% confidence).
+
+![Approving Option 1](docs/demo/4-approve.png)
+
+### 5. Check the audit trail
+
+The approval is saved to the **Approved Remediation Plan (Audit Trail)** and fed back as context for later suggestions. Nothing is applied to the data automatically.
+
+![The approved option in the audit trail](docs/demo/5-audit-trail.png)
