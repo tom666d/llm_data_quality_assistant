@@ -4,7 +4,7 @@
 >
 > - **Source.** It is mirrored from the team repository [tom666d/big_data_team_6](https://github.com/tom666d/big_data_team_6) at the submission commit `b01ef2e` (2026-04-26). Only this README was rewritten.
 > - **Team.** Sean Cabaniss, Yung Hsuan Hsieh, Ching-Fen Hung, Yonghui Kim, and Omkar Thombare. It was built for the Big Data Analytics course in the MSBA program at the Carlson School of Management, University of Minnesota. I (Yung Hsuan Hsieh) was the team's LLM engineer and built the LLM pipeline with Ching-Fen Hung.
-> - **Follow-up.** I later evaluated this system in [data-quality-agent](https://github.com/tom666d/data-quality-agent).
+> - **Follow-up.** I later evaluated this system in [llm_data_quality_evaluation](https://github.com/tom666d/llm_data_quality_evaluation).
 
 ---
 
